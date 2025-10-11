@@ -10,9 +10,15 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get('/about', (req, res) => {
-    res.render('about')
-})
+app.get("/performance", (req, res) => {
+    res.render("performance");
+});
+
+
+app.get("/contact", (req, res) => {
+    res.render("contact");
+});
+
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`)

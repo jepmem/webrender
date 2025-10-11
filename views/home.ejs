@@ -1,3 +1,91 @@
-<h1>Home Page</h1>
-<p>Yo wassup</p>
-<a href="/about">go to about page</a>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Home | DefEng</title>
+
+  <!-- CSS -->
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background: #222;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 40px;
+      margin-right: 10px;
+    }
+
+    .nav-links a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      color: #ffcc00;
+    }
+
+    main {
+      padding: 40px;
+      text-align: center;
+    }
+
+    .btn {
+      background: #ffcc00;
+      color: #222;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff9900;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HTML + EJS -->
+  <header>
+    <div class="logo">
+      <img src="/dog-logo.png" alt="DefEng Logo" />
+      <a href="/" class="active"><span style="color: #ffcc00;">DefEng</span></a>        
+    </div>
+
+    <nav class="nav-links">
+      <a href="/" class="active">Home</a>
+      <a href="/performance">Performance</a>
+      <a href="/contact">Contact</a>
+    </nav>
+  </header>
+
+  <main>
+    <h2>Welcome👋</h2>
+    <p>We're glad to see you on our website!</p>
+    <button class="btn" onclick="sayHello()">Click me</button>
+  </main>
+
+</body>
+</html>
