@@ -10,13 +10,8 @@ app.get('/', (req, res) => {
     res.render('home')
 })
 
-app.get("/performance", (req, res) => {
-    res.render("performance");
-});
-
-
-app.get("/contact", (req, res) => {
-    res.render("contact");
+app.get("/minigame", (req, res) => {
+    res.render("minigame");
 });
 
 

@@ -1,0 +1,776 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>jepsite</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+    .bubble {
+  position: absolute;
+  bottom: -100px;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 50%;
+  animation: rise 10s linear infinite;
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* สร้างหลายขนาด/ความเร็วแบบสุ่ม */
+.bubble:nth-child(1) { left: 10%; width: 40px; height: 40px; animation-duration: 12s; }
+.bubble:nth-child(2) { left: 25%; width: 25px; height: 25px; animation-duration: 9s; }
+.bubble:nth-child(3) { left: 40%; width: 50px; height: 50px; animation-duration: 14s; }
+.bubble:nth-child(4) { left: 55%; width: 20px; height: 20px; animation-duration: 8s; }
+.bubble:nth-child(5) { left: 70%; width: 60px; height: 60px; animation-duration: 15s; }
+.bubble:nth-child(6) { left: 85%; width: 30px; height: 30px; animation-duration: 11s; }
+
+/* เคลื่อนไหวฟองขึ้นบน */
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-110vh) scale(1.5);
+    opacity: 0;
+  }
+}
+    header {
+      background: #000000; 
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 40px;
+      position: fixed;
+      top: 0;
+      width: 96%;
+      left: 0;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+    }
+
+    .logo img {
+      width: 60px;
+      margin-right: 10px;
+    }
+    .logo a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 40px;
+    }
+    .nav-links a {
+      color: white;
+      margin: 0 15px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .nav-links a:hover {
+      color: #ffcc00;
+    }
+
+    main {
+      margin-top: 120px; /* เว้นระยะ header */
+      text-align: center;
+    }
+
+    section {
+      padding: 100px 20px;
+      min-height: 80vh;
+    }
+
+    #home {
+      background: #f4f4f4;
+    }
+
+    #performance {
+      background: #fff3cd;
+    }
+
+    #contact {
+      background: #e2f0cb;
+    }
+
+    .btn {
+      background: #ffcc00;
+      color: #222;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: 0.3s;
+    }
+
+    .btn:hover {
+      background: #ff9900;
+    }
+   
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <header>
+    <div class="logo">
+      <a href="minigame" ><span>jepmem Game</span></a>        
+    </div>
+
+    <nav class="nav-links">
+      <a href="/">Back to Main Menu</a>
+    </nav>
+  </header>
+
+ 
+  <main>
+  <div class="game-container">
+    <div id="game-box">
+      <h1>Listen to Definition of the word and type your answer to get Brain Cell!</h1>
+
+      <div class="section">
+        <button class="btn1" onclick="playDefinition()">🔊 PLAY/REPEAT</button>
+        </div>
+     
+        <div class="section">
+        <button class="btn3" onclick="toggleTextDefinition()">👁️ Show/Hide Definition</button></div>
+       
+      <div class="section" id="text-definition" style="display: none; font-style: italic; color: rgb(0, 0, 0);font-size: 30px;"></div>
+
+      <div class="section">
+        <input type="text" id="userAnswer" placeholder="type your word">
+      </div>
+
+      <div class="section">
+        <button class="btn1" onclick="checkAnswer()">Yes, I'm sure</button>
+      </div>
+
+      <div id="score-box" style="font-size: 20px; color: gold; margin-bottom: 1rem;">
+      💎🧠 <span style="color: rgb(34, 192, 255);">B</span><span style="color: green;">r</span><span style="color: purple;">a</span><span style="color: orange;">i</span><span style="color: red;">n</span>  <span style="color: teal;">C</span><span style="color: pink;">e</span><span style="color: yellow;">l</span><span style="color: cyan;">l</span><span style="color: salmon;">s</span>: <span id="score"></span> 💎🧠
+      </div>
+
+
+      <div class="section" id="result"style="font-size:18px;></div>
+      
+      <div class="section">
+        <button onclick="showAnswer()">Reveal</button>
+      </div>
+
+      <div class="section">
+        <button class="btn2" onclick="nextQuestion()">Next</button>
+      </div>
+    </div>
+  </div>
+  <audio id="correctSound" src="https://jepmem.github.io/my-sound/popcutt.mp3" preload="auto"></audio>
+  <img id="popup-image" src="https://raw.githubusercontent.com/jepmem/my-sound/main/bb-removebg-preview.png"
+     alt="Correct!" class="popup" style="display:none; position: absolute; top: 45%; left: 50%; transform: translateX(-50%); z-index: 999; width: 200px;">
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+  <div class="bubble"></div>
+
+  </main>
+
+<script>
+  const vocabulary = [
+    { word: "apple", definition: "A round fruit that is red or green and grows on trees." },
+    { word: "run", definition: "To move swiftly on foot." },
+    { word: "book", definition: "A set of written pages bound together." },
+    { word: "cat", definition: "A small domesticated animal with soft fur and sharp claws." },
+    { word: "abandon", definition: "To leave someone or something behind permanently." },
+    { word: "benefit", definition: "An advantage or profit gained from something." },
+    { word: "climate", definition: "The weather conditions in a particular region over time." },
+    { word: "debate", definition: "A formal discussion on a particular matter." },
+    { word: "efficient", definition: "Working well without wasting time or energy." },
+    { word: "flexible", definition: "Able to change or be changed easily." },
+    { word: "generation", definition: "All the people born and living around the same time." },
+    { word: "highlight", definition: "To emphasize something important." },
+    { word: "impact", definition: "The effect that something has." },
+    { word: "justice", definition: "Fair treatment or behavior." },
+    { word: "keen", definition: "Eager or enthusiastic." },
+    { word: "limit", definition: "The greatest amount allowed or possible." },
+    { word: "maintain", definition: "To keep something in good condition." },
+    { word: "narrow", definition: "Having a small width." },
+    { word: "objective", definition: "A goal or purpose." },
+    { word: "participate", definition: "To take part in an activity." },
+    { word: "quote", definition: "To repeat words from someone else." },
+    { word: "relevant", definition: "Closely connected to the topic." },
+    { word: "significant", definition: "Important or meaningful." },
+    { word: "transfer", definition: "To move from one place to another." },
+    { word: "unique", definition: "Being the only one of its kind." },
+    { word: "valid", definition: "Based on truth or reason; acceptable." },
+    { word: "witness", definition: "Someone who sees an event happen." },
+    { word: "youth", definition: "The period of time when a person is young." },
+    { word: "zone", definition: "An area with particular features or use." },
+    { word: "adapt", definition: "To change to fit new conditions." },
+    { word: "balance", definition: "A state where different things are equal or in the correct proportions." },
+    { word: "capture", definition: "To take something by force or effort." },
+    { word: "define", definition: "To explain the meaning of a word or idea." },
+    { word: "encounter", definition: "A meeting, especially one that is unplanned or unexpected." },
+    { word: "familiar", definition: "Well-known or easily recognized." },
+  { word: "giant", definition: "Very large in size or power." },
+  { word: "honor", definition: "High respect or esteem." },
+  { word: "illustrate", definition: "To make something clear by giving examples." },
+  { word: "joint", definition: "A place where two parts are connected." },
+  { word: "knock", definition: "To hit a surface to make a noise." },
+  { word: "launch", definition: "To start or begin something." },
+  { word: "massive", definition: "Very large, heavy, or solid." },
+  { word: "negotiate", definition: "To discuss something in order to reach an agreement." },
+  { word: "obvious", definition: "Easy to see or understand." },
+  { word: "predict", definition: "To say what will happen in the future." },
+  { word: "quote", definition: "To repeat exactly what someone else has said or written." },
+  { word: "resist", definition: "To fight against something or refuse to accept it." },
+  { word: "sufficient", definition: "As much as needed." },
+  { word: "tendency", definition: "A habit or likelihood to behave in a certain way." },
+  { word: "urge", definition: "A strong desire or impulse." },
+  { word: "visible", definition: "Able to be seen." },
+  { word: "welfare", definition: "The health, happiness, and fortunes of a person or group." },
+  { word: "yell", definition: "To shout loudly." },
+  { word: "adjust", definition: "To change slightly to fit or function better." },
+  { word: "barrier", definition: "Something that blocks or separates." },
+  { word: "capacity", definition: "The ability or space to hold something." },
+  { word: "declare", definition: "To announce something publicly or formally." },
+  { word: "emphasis", definition: "Special importance or attention." },
+  { word: "frustrate", definition: "To make someone feel annoyed or discouraged." },
+  { word: "gesture", definition: "A movement of the hand or body to express meaning." },
+  { word: "hesitate", definition: "To pause before doing something." },
+  { word: "ignore", definition: "To pay no attention to something." },
+  { word: "justify", definition: "To prove something is right or reasonable." },
+  { word: "label", definition: "A tag or description attached to something." },
+  { word: "mechanism", definition: "A system or structure for achieving something." },
+  { word: "nuclear", definition: "Relating to energy from atoms." },
+  { word: "oppose", definition: "To be against something." },
+  { word: "persuade", definition: "To convince someone to do something." },
+  { word: "remarkable", definition: "Unusual or surprising and therefore worth noticing." },
+  { word: "satisfy", definition: "To make someone pleased or content." },
+  { word: "threat", definition: "A danger or warning of harm." },
+  { word: "undergo", definition: "To experience something, often difficult or painful." },
+  { word: "vary", definition: "To change or differ." },
+  { word: "wealth", definition: "A large amount of money or possessions." },
+  { word: "yield", definition: "To produce or provide something." },
+  { word: "analyze", definition: "To examine something in detail." },
+  { word: "brilliant", definition: "Very bright or intelligent." },
+  { word: "criticize", definition: "To point out faults or judge something negatively." },
+  { word: "devote", definition: "To give time or effort to a particular purpose." },
+  { word: "eliminate", definition: "To remove or get rid of something." },
+  { word: "function", definition: "The purpose or job of something." },
+  { word: "guarantee", definition: "A promise that something will be done or happen." },
+  { word: "host", definition: "A person who entertains guests or runs an event." },
+  { word: "incident", definition: "An event, especially one that is unusual or unpleasant." },
+  { word: "keen", definition: "Very eager or interested." },
+  { word: "liberal", definition: "Open to new ideas or changes." },
+  { word: "monitor", definition: "To observe or check something regularly." },
+  { word: "notion", definition: "An idea or belief." },
+  { word: "overall", definition: "Considering everything; in general." },
+  { word: "potential", definition: "Having the ability to develop into something." },
+  { word: "recall", definition: "To remember something." },
+  { word: "scheme", definition: "A plan, often secret or dishonest." },
+  { word: "temporary", definition: "Not lasting forever; short-term." },
+  { word: "urban", definition: "Related to cities or towns." },
+  { word: "volume", definition: "The amount of space something occupies or sound level." },
+  { word: "withdraw", definition: "To take back or remove." },
+  { word: "zone", definition: "An area designated for a particular purpose." },
+  { word: "car", definition: "A vehicle with four wheels that people drive." },
+  { word: "plane", definition: "A flying vehicle with wings." },
+  { word: "house", definition: "A place where people live." },
+  { word: "bottle", definition: "A container for liquids." },
+  { word: "wing", definition: "Part of a bird or plane used to fly." },
+  { word: "sea", definition: "A large area of salt water." },
+  { word: "umbrella", definition: "Something used to protect from rain." },
+  { word: "table", definition: "A piece of furniture to put things on." },
+  { word: "chair", definition: "A seat for one person." },
+  { word: "bag", definition: "A container for carrying things." },
+  { word: "door", definition: "A movable part used to enter or exit a room." },
+  { word: "window", definition: "A glass opening in a wall to see through." },
+  { word: "ball", definition: "A round object used in games." },
+  { word: "bed", definition: "Furniture for sleeping." },
+  { word: "phone", definition: "A device to talk to people far away." },
+  { word: "cup", definition: "A small container for drinking." },
+  { word: "pen", definition: "A tool for writing with ink." },
+  { word: "book", definition: "Pages with writing, used for reading." },
+  { word: "clock", definition: "A device that shows time." },
+  { word: "shoe", definition: "Something worn on the foot." },
+  { word: "hat", definition: "Something worn on the head." },
+  { word: "key", definition: "A small object used to open a lock." },
+  { word: "computer", definition: "A machine used for work, games, and internet." },
+  { word: "pencil", definition: "A tool for writing or drawing." },
+  { word: "lamp", definition: "A light source." },
+  { word: "television", definition: "A screen to watch shows or movies." },
+  { word: "bike", definition: "A vehicle with two wheels." },
+  { word: "train", definition: "A long vehicle that moves on tracks." },
+  { word: "bus", definition: "A big vehicle that carries many people." },
+  { word: "spoon", definition: "A tool used to eat liquid food." },
+  { word: "fork", definition: "A tool with prongs for eating." },
+  { word: "plate", definition: "A dish to put food on." },
+  { word: "soap", definition: "Used to wash hands or body." },
+  { word: "towel", definition: "Used to dry after washing." },
+  { word: "toothbrush", definition: "Used to clean teeth." },
+  { word: "fan", definition: "A machine that moves air." },
+  { word: "bag", definition: "Used to carry things." },
+  { word: "toy", definition: "Something children play with." },
+  { word: "shirt", definition: "Clothing for the upper body." },
+  { word: "pants", definition: "Clothing for the legs." },
+  { word: "sock", definition: "Worn on feet inside shoes." },
+  { word: "glove", definition: "Worn on hands." },
+  { word: "blanket", definition: "Used to keep warm when sleeping." },
+  { word: "mirror", definition: "Reflects images." },
+  { word: "fridge", definition: "Keeps food cold." },
+  { word: "stove", definition: "Used for cooking." },
+  { word: "sink", definition: "Used to wash hands or dishes." },
+  { word: "carpet", definition: "Covers the floor." },
+  { word: "curtain", definition: "Covers windows." },
+  { word: "toy", definition: "Used by children for play." },
+  { word: "ant", definition: "A small insect that lives in a group." },
+  { word: "bird", definition: "An animal with wings and feathers that can usually fly." },
+  { word: "dog", definition: "A common pet that barks." },
+  { word: "egg", definition: "A round object from a bird, eaten as food." },
+  { word: "fish", definition: "An animal that lives in water and swims." },
+  { word: "grass", definition: "Green plants that cover the ground." },
+  { word: "hill", definition: "A small raised area of land." },
+  { word: "ice", definition: "Frozen water." },
+  { word: "jam", definition: "A sweet spread made from fruit." },
+  { word: "kite", definition: "A toy that flies in the wind on a string." },
+  { word: "leaf", definition: "A flat green part of a plant." },
+  { word: "moon", definition: "The round object that shines at night in the sky." },
+  { word: "nest", definition: "A place where birds lay eggs." },
+  { word: "oil", definition: "A thick liquid used for cooking or fuel." },
+  { word: "pig", definition: "A farm animal with a flat nose." },
+  { word: "queen", definition: "A female ruler or royal woman." },
+  { word: "rain", definition: "Water that falls from clouds." },
+  { word: "star", definition: "A bright light in the night sky." },
+  { word: "tree", definition: "A tall plant with a trunk and branches." },
+  { word: "van", definition: "A large vehicle for carrying people or things." },
+  { word: "water", definition: "A clear liquid we drink." },
+  { word: "x-ray", definition: "A picture of bones inside the body." },
+  { word: "zebra", definition: "An animal with black and white stripes." },
+  { word: "apple", definition: "A fruit that is red or green." },
+  { word: "balloon", definition: "A rubber object filled with air." },
+  { word: "cloud", definition: "White shape in the sky that brings rain." },
+  { word: "drum", definition: "A musical instrument you hit." },
+  { word: "ear", definition: "Part of the body used for hearing." },
+  { word: "frog", definition: "A small green animal that jumps and croaks." },
+  { word: "goat", definition: "A farm animal with horns and a beard." },
+  { word: "hat", definition: "Something worn on the head." },
+  { word: "ink", definition: "Colored liquid used for writing." },
+  { word: "juice", definition: "Drink made from fruits." },
+  { word: "lamp", definition: "A device that gives light." },
+  { word: "mouse", definition: "A small animal or a computer device." },
+  { word: "net", definition: "A tool made of string used to catch things." },
+  { word: "orange", definition: "A round fruit or a color." },
+  { word: "pen", definition: "A tool used for writing." },
+  { word: "quilt", definition: "A thick blanket with a pattern." },
+  { word: "rope", definition: "Strong thick string." },
+  { word: "sun", definition: "The bright light in the sky during the day." },
+  { word: "top", definition: "The highest part of something." },
+  { word: "uncle", definition: "The brother of your mother or father." },
+  { word: "vase", definition: "A container for holding flowers." },
+  { word: "web", definition: "A net made by a spider." },
+  { word: "yogurt", definition: "A thick dairy food." },
+  { word: "zip", definition: "To fasten clothes with a zipper." },
+  { word: "beach", definition: "Sandy land by the sea." },
+  { word: "cookie", definition: "A sweet baked snack." },
+  { word: "duck", definition: "A bird that swims and quacks." },
+  { word: "air", definition: "The invisible gas we breathe." },
+  { word: "arm", definition: "The part of the body between shoulder and hand." },
+  { word: "banana", definition: "A long yellow fruit." },
+  { word: "bark", definition: "The sound a dog makes." },
+  { word: "barn", definition: "A building where animals or crops are kept." },
+  { word: "bat", definition: "An animal that flies at night." },
+  { word: "bean", definition: "A small seed used as food." },
+  { word: "bell", definition: "An object that makes a ringing sound." },
+  { word: "boot", definition: "A strong shoe that covers the ankle." },
+  { word: "bush", definition: "A short, thick plant." },
+  { word: "cake", definition: "A sweet baked food." },
+  { word: "camp", definition: "A place where people stay in tents." },
+  { word: "cat", definition: "A small pet animal with soft fur." },
+  { word: "clay", definition: "Soft earth used for making pots." },
+  { word: "coin", definition: "A round piece of money." },
+  { word: "cow", definition: "A large farm animal that gives milk." },
+  { word: "crab", definition: "A sea animal with claws and a shell." },
+  { word: "dad", definition: "Father; a male parent." },
+  { word: "desk", definition: "A piece of furniture to write or work on." },
+  { word: "dig", definition: "To make a hole in the ground." },
+  { word: "doll", definition: "A toy that looks like a person." },
+  { word: "dot", definition: "A small round mark." },
+  { word: "dust", definition: "Tiny dry dirt in the air or on surfaces." },
+  { word: "fan", definition: "A machine that blows air." },
+  { word: "farm", definition: "Land used to grow food or raise animals." },
+  { word: "fire", definition: "Hot, bright flames from burning." },
+  { word: "flag", definition: "A piece of cloth showing a country’s symbol." },
+  { word: "fox", definition: "A wild animal with a bushy tail." },
+  { word: "gift", definition: "Something given to someone." },
+  { word: "glue", definition: "A sticky substance used to join things." },
+  { word: "gold", definition: "A yellow valuable metal." },
+  { word: "gum", definition: "A chewy candy." },
+  { word: "hand", definition: "The part at the end of your arm." },
+  { word: "hill", definition: "A small high piece of land." },
+  { word: "horse", definition: "A large animal people ride or use to pull things." },
+  { word: "ink", definition: "Colored liquid for writing or printing." },
+  { word: "iron", definition: "A metal or a tool to make clothes flat." },
+  { word: "jeans", definition: "Pants made from denim." },
+  { word: "jelly", definition: "A sweet soft food made from fruit." },
+  { word: "jump", definition: "To push yourself off the ground." },
+  { word: "lake", definition: "A large area of water." },
+  { word: "leg", definition: "Part of the body used for walking." },
+  { word: "lid", definition: "A cover for a container." },
+  { word: "log", definition: "A piece of cut tree trunk." },
+  { word: "man", definition: "An adult male person." },
+  { word: "map", definition: "A drawing of places and roads." },
+  { word: "milk", definition: "A white drink from cows." },
+  { word: "moon", definition: "A round object in the night sky." },
+  { word: "mud", definition: "Wet, soft earth." },
+  { word: "nail", definition: "A small metal piece for fixing things." },
+  { word: "nose", definition: "Part of the face used to smell." },
+  { word: "nut", definition: "A hard fruit with a shell." },
+  { word: "owl", definition: "A bird that sees at night." },
+  { word: "pail", definition: "Another word for bucket." },
+  { word: "peach", definition: "A soft round fruit with fuzzy skin." },
+  { word: "pet", definition: "An animal kept at home." },
+  { word: "pig", definition: "A farm animal with a snout." },
+  { word: "pot", definition: "A deep round container for cooking." },
+  { word: "queen", definition: "A woman ruler of a country." },
+  { word: "rabbit", definition: "A small animal with long ears." },
+  { word: "ring", definition: "A small circle worn on the finger." },
+  { word: "rock", definition: "A hard piece of earth or stone." },
+  { word: "rug", definition: "A small carpet." },
+  { word: "sand", definition: "Tiny grains found on beaches." },
+  { word: "shell", definition: "A hard covering of some animals or objects." },
+  { word: "ship", definition: "A large boat." },
+  { word: "shirt", definition: "Clothing worn on the upper body." },
+  { word: "shop", definition: "A place where things are sold." },
+  { word: "sing", definition: "To make music with your voice." },
+  { word: "sink", definition: "A bowl used to wash things." },
+  { word: "ski", definition: "To glide on snow using special equipment." },
+  { word: "sky", definition: "The space above the earth." },
+  { word: "sled", definition: "A small vehicle used on snow." },
+  { word: "smile", definition: "A happy face expression." },
+  { word: "snow", definition: "Soft white ice falling from the sky." },
+  { word: "sock", definition: "Clothing worn on the foot." },
+  { word: "song", definition: "Words with music." },
+  { word: "star", definition: "A shining object in the night sky." },
+  { word: "stick", definition: "A small piece of a tree branch." },
+  { word: "stone", definition: "A small hard piece of rock." },
+  { word: "suit", definition: "Formal clothes for men." },
+  { word: "tag", definition: "A label or small card." },
+  { word: "tent", definition: "A shelter made of cloth used for camping." },
+  { word: "tie", definition: "A long cloth worn around the neck." },
+  { word: "toad", definition: "A bumpy-skinned animal like a frog." },
+  { word: "toes", definition: "The fingers on your feet." },
+  { word: "tray", definition: "A flat object used to carry things." },
+  { word: "twin", definition: "One of two children born at the same time." },
+  { word: "wall", definition: "A flat side of a room or building." },
+  { word: "wave", definition: "A movement of water or hand." },
+  { word: "web", definition: "What a spider makes." },
+  { word: "well", definition: "A deep hole for water." },
+  { word: "wind", definition: "Air moving around us." },
+  { word: "wood", definition: "Material from trees." },
+  { word: "zipper", definition: "A fastener for clothes or bags." }
+
+  ];
+  let availableVocabulary = [...vocabulary];
+  let currentQuestion = null;
+  let answered = false;
+  let score = 0;
+  let revealed = false;
+
+  function updateScore() {
+  document.getElementById("score").textContent = score;
+  }
+  document.getElementById("game-box").style.display = "block";
+
+  document.getElementById("userAnswer").addEventListener("keypress", function(event) {
+    if (event.key === "Enter") {
+      event.preventDefault(); 
+      checkAnswer(); 
+    } 
+  });
+
+  function nextQuestion() {
+  if (availableVocabulary.length === 0) {
+    document.getElementById('result').textContent = '🎉 You have completed all words!';
+    document.getElementById('result').style.color = 'purple';
+    document.getElementById('userAnswer').disabled = true;
+    return;
+  }
+    answered = false;
+    revealed = false;
+    document.getElementById('result').textContent = '';
+    document.getElementById('userAnswer').value = '';
+    document.getElementById('text-definition').style.display = 'none';
+    const randomIndex = Math.floor(Math.random() * availableVocabulary.length);
+    currentQuestion = availableVocabulary[randomIndex];
+    availableVocabulary.splice(randomIndex, 1); // ลบคำนี้ออกจากชุดที่ยังไม่ถาม
+    playDefinition();
+    updateTextDefinition();
+  }
+
+  function playDefinition() {
+    if (currentQuestion) {
+      speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(currentQuestion.definition);
+      utterance.lang = 'en-US';
+      speechSynthesis.speak(utterance); 
+    }
+  }
+
+  function updateTextDefinition() {
+    document.getElementById('text-definition').textContent = currentQuestion.definition;
+  }
+
+  function toggleTextDefinition() {
+    const defBox = document.getElementById('text-definition');
+    if (defBox.style.display === "none") {
+      defBox.style.display = "block";
+    } else {
+      defBox.style.display = "none";
+    }
+  }
+
+  function checkAnswer() {
+    if (answered) return; // ถ้าตอบแล้ว ไม่ให้ทำงานต่อ
+    const userInput = document.getElementById('userAnswer').value.trim().toLowerCase();
+    const correctAnswer = currentQuestion.word.toLowerCase();
+
+    if (userInput === correctAnswer) {
+      answered = true; // ตั้งค่าว่าตอบแล้ว
+       if (revealed) {
+      document.getElementById('result').textContent = "✔️ Correct! (No point - revealed)";
+      document.getElementById('result').style.color = "gray";
+      document.getElementById('correctSound').play();
+    } else {
+      score += 1;
+      updateScore();
+      document.getElementById('result').textContent = "✅ Correct!";
+      document.getElementById('result').style.color = "green";
+      document.getElementById('correctSound').play();
+  
+  const popup = document.getElementById('popup-image');
+  popup.style.display = 'block';
+  popup.classList.remove('animate');
+  void popup.offsetWidth; // trick: force reflow
+  popup.classList.add('animate');
+
+  setTimeout(() => {
+  popup.style.display = 'none';
+  popup.classList.remove('animate');
+  }, 1200);
+  }
+    } else {
+      document.getElementById('result').textContent = `❌ Wrong!, try again`;
+      document.getElementById('result').style.color = "red";
+    }
+  }
+
+  function showAnswer() {
+    revealed = true;
+    document.getElementById('result').textContent = `💡 Answer is : "${currentQuestion.word}"💡`;
+    document.getElementById('result').style.color = "blue";
+  }
+
+  // เริ่มเกมทันที
+  nextQuestion();
+
+  for (let i = 0; i < 30; i++) {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+
+    // สุ่มขนาด ความเร็ว และตำแหน่ง
+    const size = Math.random() * 60 + 10; // 10px - 70px
+    const left = Math.random() * 100;     // ตำแหน่งแนวนอน %
+    const duration = Math.random() * 10 + 6; // 6–16s
+    const delay = Math.random() * 5;         // หน่วงเวลา
+    const shift = (Math.random() - 0.5) * 60 + 'px'; // ขยับซ้าย/ขวา
+
+    bubble.style.width = size + 'px';
+    bubble.style.height = size + 'px';
+    bubble.style.left = left + '%';
+    bubble.style.animationDuration = duration + 's';
+    bubble.style.animationDelay = delay + 's';
+    bubble.style.setProperty('--x-shift', shift);
+
+    document.body.appendChild(bubble);
+  } 
+</script>
+
+<style>
+  .section {
+    margin-bottom: 1.5rem; /* เพิ่มช่องว่างระหว่างแต่ละส่วน */
+  }
+  .game-container {
+    text-align: center;
+  }
+
+  @keyframes popFade {
+  0% {
+    transform: translateX(-50%) translateY(0) scale(0.5);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-30px) scale(0.8);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) translateY(-50px) scale(1.2);
+    opacity: 0;
+  }
+  }
+
+  #popup-image.animate {
+  animation: popFade 1.2s ease-out forwards;
+  }
+  
+  .btn1 {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 999px; /* ทำให้ปุ่มโค้งมน */
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+    margin-top: 20px;
+  }
+  .btn3 {
+    background-color: black;
+    color: white;
+    border: 2px solid white;
+    border-radius: 999px; /* ทำให้ปุ่มโค้งมน */
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 20px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+   button {
+    background-color: yellowgreen;
+    color: white;
+    border: 2px solid white;
+    border-radius: 999px; /* ทำให้ปุ่มโค้งมน */
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+  .btn2 {
+    background-color: mediumpurple;
+    color: white;
+    border: 2px solid white;
+    border-radius: 999px; /* ทำให้ปุ่มโค้งมน */
+    padding: 10px 20px;
+    font-family: monospace;
+    font-size: 30px;
+    cursor: pointer;
+    transition: 0.3s ease;
+  }
+
+  
+  .btn1:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+  }
+  .btn3:hover {
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+  }
+ button2:hover {
+    background-color: hotpink;
+    color: black;
+    border: 2px solid black;
+  }
+  button:hover {
+    background-color: limegreen;
+    color: black;
+    border: 2px solid black;
+  }
+  body {
+    font-family: monospace;
+  }
+
+  input[type="text"],
+button,
+.btn1, .btn2, .btn3 {
+  font-size: 30px;
+  padding: 10px 20px;
+  max-width: none;
+}
+@media (max-width: 768px) {
+  /* กันความกว้างเกินจอทุกกรณี */
+  html, body { overflow-x: hidden; width: 100%; }
+  *, *::before, *::after { box-sizing: border-box; }
+
+  /* Header: เต็มจอ + เรียงเป็นคอลัมน์ */
+  header {
+    width: 100%;
+    padding: 12px 16px;
+    flex-direction: column;
+    align-items: flex-start;   /* หรือ center ถ้าชอบ */
+    gap: 8px;
+  }
+  .logo img { width: 40px; margin-right: 8px; }
+  .logo a   { font-size: 28px; margin: 0; }
+  .nav-links a { font-size: 14px; margin: 0; }
+
+  /* เว้นระยะจาก header ที่ fixed */
+  main { margin-top: 120px; }
+
+  /* Section: กระชับระยะ */
+  section { padding: 24px 16px; min-height: auto; }
+  .section { margin-bottom: 12px; }
+
+  /* กล่องเกมไม่ให้ล้น + padding ข้าง */
+  .game-container { padding: 0 12px; }
+  #game-box { max-width: 100%; margin: 0 auto; }
+
+  /* หัวข้อ/ข้อความ */
+  h1 { font-size: 20px; line-height: 1.35; margin: 12px 0; }
+  #score-box { font-size: 16px; }
+
+  /* ช่องกรอกคำตอบ */
+  input[type="text"]{
+    width: 100%;
+    max-width: 480px;
+    font-size: 18px;
+    padding: 10px 14px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+  }
+
+  /* ปุ่มทั้งหมด: ขนาดพอดีมือ */
+  button,
+  .btn1, .btn2, .btn3 {
+    font-size: 18px !important;
+    padding: 10px 16px !important;
+  }
+  .btn1 { margin-top: 12px; }
+  .btn2, .btn3 { border-radius: 999px; }
+
+  /* รูป popup ตอนตอบถูก */
+  #popup-image { width: 140px; top: 45%; }
+
+  /* กัน scroll ข้างจาก figure/รูปที่อาจล้น */
+  img, video { max-width: 100%; height: auto; display: block; }
+}
+
+</style>
+</body>
+</html>
+
+    
