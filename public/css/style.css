@@ -1,0 +1,57 @@
+html,body{overflow-x:hidden;width:100%}
+body{font-family:Arial,sans-serif;background-color:#f4f4f4;margin:0;padding:0}
+header{background:#222;color:#fff;display:flex;justify-content:space-between;align-items:center;padding:15px 40px;position:fixed;top:0;width:100%;left:0;box-sizing:border-box}
+.logo{display:flex;align-items:center}
+.logo a{color:#fff;margin:0 15px;text-decoration:none;font-weight:bold;font-size:40px}
+.nav-links a{color:#fff;margin:0 15px;text-decoration:none;font-weight:bold}
+.nav-links a:hover{color:#ffcc00}
+main{margin-top:60px;text-align:center}
+section{padding:clamp(40px,6vw,80px) 20px;min-height:70vh}
+#home{background:#f4f4f4}
+#performance{background:#fff3cd}
+#minigame{background:url("https://w0.peakpx.com/wallpaper/374/151/HD-wallpaper-nyan-cat-cat-funny-kitten-kitty-lol-meow-neon-nyan-omg-rainbow-tart.jpg") repeat-x;animation:moveBg 20s linear infinite;background-size:auto;background-position:0 50%;color:#fff;text-align:center;text-shadow:2px 2px 8px #000;min-height:60vh}
+@keyframes moveBg{from{background-position:0 0}to{background-position:1000px 0}}
+#contact{background:#e2f0cb;min-height:auto;padding:40px 20px}
+.btn{background:#ffcc00;color:#222;padding:clamp(12px,2.5vw,24px) clamp(28px,4vw,60px);border:none;border-radius:6px;cursor:pointer;font-size:50px;transition:.3s;box-shadow:0 6px 18px rgba(0,0,0,.25)}
+.btn:hover{background:#ff9900}
+.home-section .content{display:flex;align-items:center;justify-content:flex-start;gap:clamp(32px,6vw,160px);padding:clamp(24px,6vw,80px);padding-left:clamp(0px,10vw,250px);min-width:0}
+.home-section img{width:min(500px,40vw);max-width:100%;height:auto;border-radius:6px}
+.performance-section .content{display:flex;align-items:center;justify-content:flex-start;gap:clamp(32px,6vw,100px);padding:clamp(24px,6vw,80px);padding-left:clamp(0px,10vw,250px)}
+.performance-section img{width:min(600px,45vw);max-width:100%;height:auto;border-radius:6px}
+.social-link img{width:60px;cursor:pointer;transition:transform .2s,filter .2s}
+.contact img{width:140px;cursor:pointer;transition:transform .2s,filter .2s}
+.contact2 img{width:65px;cursor:pointer;transition:transform .2s,filter .2s}
+.social-link2 img{width:80px;cursor:pointer;transition:transform .2s,filter .2s}
+.social-link2 img:hover{transform:scale(1.15);filter:drop-shadow(0 0 8px #00eeff)}
+.social-link2 a{display:inline-flex;align-items:center;text-decoration:none;color:#000;font-weight:bold;font-size:20px;transition:color .3s;margin-right:50px}
+.social-link img:hover{transform:scale(1.15);filter:drop-shadow(0 0 8px #ff0050)}
+.social-link a{display:inline-flex;align-items:center;text-decoration:none;color:#000;font-weight:bold;font-size:20px;transition:color .3s}
+.contact-container{display:flex;justify-content:center;align-items:center;gap:40px;margin-top:20px}
+.contact img:hover,.contact2 img:hover{transform:scale(1.1);filter:drop-shadow(0 0 10px #ffcc00)}
+#projects{background:#e8f4ff;text-align:center}
+.projects-section h1{font-size:36px;margin-bottom:10px}
+.projects-section p{color:#555;margin-bottom:40px}
+.projects-container{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px;max-width:1000px;margin:0 auto}
+.project-card{background:#fff;padding:24px;border-radius:12px;box-shadow:0 6px 15px rgba(0,0,0,.1);transition:.3s}
+.project-card:hover{transform:translateY(-8px);box-shadow:0 12px 25px rgba(0,0,0,.15)}
+.project-card h3{margin-bottom:10px;color:#222}
+.project-card p{margin-bottom:8px;font-weight:600}
+.project-card span{font-size:14px;color:#666}
+@media(max-width:768px){
+header{width:100%;padding:12px 16px;flex-direction:column;gap:8px}
+.logo a{font-size:28px;margin:0}
+.nav-links{display:flex;flex-wrap:wrap;gap:10px 14px;justify-content:center}
+.nav-links a{font-size:14px;margin:0}
+main{margin-top:84px}
+section{padding:32px 16px;min-height:auto}
+.home-section .content,.performance-section .content{flex-direction:column;align-items:center;text-align:center;gap:20px;padding:16px;padding-left:0}
+.home-section img{width:min(420px,60vw)}
+.performance-section img{width:min(480px,85vw)}
+.social-link img{width:min(480px,10vw)}
+.social-link2 img{width:min(480px,20vw)}
+#minigame{background-size:auto 100%;background-position:0 50%;min-height:40vh;padding:40px 16px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center}
+.contact-container{gap:20px}
+.contact img{width:120px}
+.contact2 img{width:54px}
+#contact{background:#e2f0cb;padding:5px 0;min-height:auto}
+}

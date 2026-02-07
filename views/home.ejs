@@ -4,251 +4,8 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>jepsite</title>
-
-  <style>
-    html, body { overflow-x: hidden; width: 100%; }
-    body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      margin: 0;
-      padding: 0;
-    }
-
-    header {
-      background: #222; 
-      color: #fff;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 15px 40px;
-      position: fixed;
-      top: 0;
-      width: 100%;
-      left: 0;
-      box-sizing: border-box
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-    }
-    .logo a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-      font-size: 40px;
-    }
-
-    .nav-links a {
-      color: white;
-      margin: 0 15px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .nav-links a:hover {
-      color: #ffcc00;
-    }
-
-    main {
-      margin-top: 60px; 
-      text-align: center;
-    }
-
-    section {
-      padding: clamp(40px, 6vw, 80px) 20px;
-      min-height: 70vh;
-    }
+  <link rel="stylesheet" href="/css/style.css">
   
-    #home {
-      background: #f4f4f4;
-    }
-
-    #performance {
-      background: #fff3cd;
-    }
-    #minigame {
-      background: url('https://w0.peakpx.com/wallpaper/374/151/HD-wallpaper-nyan-cat-cat-funny-kitten-kitty-lol-meow-neon-nyan-omg-rainbow-tart.jpg') repeat-x; 
-      animation: moveBg 20s linear infinite;
-      background-size: auto;
-      background-position: 0 50%;  
-      color: white;
-      text-align: center;
-      text-shadow: 2px 2px 8px black;
-      min-height: 60vh;
-    
-    }
-
-    @keyframes moveBg {
-      from {
-        background-position: 0 0;
-      }
-      to {
-        background-position: 1000px 0; 
-      }
-    }
-    #contact {
-      background: #e2f0cb;
-      min-height: auto;   
-      padding: 40px 20px;
-    }
-
-    .btn {
-      background: #ffcc00;
-      color: #222;
-      padding: clamp(12px, 2.5vw, 24px) clamp(28px, 4vw, 60px);
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      font-size: 50px;
-      transition: 0.3s;
-      box-shadow: 0 6px 18px rgba(0,0,0,.25);  
-    }
-
-    .btn:hover {
-      background: #ff9900;
-    }
-    .home-section .content {
-      display: flex;
-      align-items: center;    
-      justify-content: flex-start;
-      gap: clamp(32px, 6vw, 160px);               /* CHANGED */
-      padding: clamp(24px, 6vw, 80px);            /* CHANGED */
-      padding-left: clamp(0px, 10vw, 250px);
-      min-width: 0;
-    }
-    .home-section img {
-      width: min(500px, 40vw);                     /* CHANGED */
-      max-width: 100%; height: auto; border-radius: 6px;
-    }
-    .performance-section .content {
-      display: flex;
-      align-items: center;    
-      justify-content: flex-start;
-      gap: clamp(32px, 6vw, 100px);               /* CHANGED */
-      padding: clamp(24px, 6vw, 80px);            /* CHANGED */
-      padding-left: clamp(0px, 10vw, 250px);
-    }
-   
-    .performance-section img {
-      width: min(600px, 45vw);                     /* CHANGED */
-      max-width: 100%; height: auto; border-radius: 6px;
-    }
-    .social-link img {
-      width: 60px;
-      cursor: pointer;
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .contact img {
-      width: 140px;
-      cursor: pointer;
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .contact2 img {
-      width: 65px;
-      cursor: pointer;
-      transition: transform 0.2s, filter 0.2s;
-    }
-    .social-link2 img {
-      width: 80px;
-      cursor: pointer;
-      transition: transform 0.2s, filter 0.2s;
-      
-    }
-    .social-link2 img:hover {
-      transform: scale(1.15);
-      filter: drop-shadow(0 0 8px #00eeff); 
-    }
-    .social-link2 a {
-      display: inline-flex;
-      align-items: center;   
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-      font-size: 20px;
-      transition: color 0.3s;
-      margin-right: 50px;
-    }
-    .social-link img:hover {
-      transform: scale(1.15);
-      filter: drop-shadow(0 0 8px #ff0050); 
-    }
-    .social-link a {
-      display: inline-flex;
-      align-items: center;   
-      text-decoration: none;
-      color: #000;
-      font-weight: bold;
-      font-size: 20px;
-      transition: color 0.3s;
-    }
-    .contact-container {
-      display: flex;              
-      justify-content: center;   
-      align-items: center;       
-      gap: 40px;              
-      margin-top: 20px;
-    }
-    .contact img:hover,
-    .contact2 img:hover {
-      transform: scale(1.1);
-      filter: drop-shadow(0 0 10px #ffcc00);
-    }
-
-    @media (max-width: 768px) {
-
-  /* Header ไม่เกินจอ & เรียงเป็นคอลัมน์ */
-  header {
-    width: 100%;
-    padding: 12px 16px;
-    flex-direction: column;
-    gap: 8px;
-  }
-  .logo a { font-size: 28px; margin: 0; }
-  .nav-links { display: flex; flex-wrap: wrap; gap: 10px 14px; justify-content: center; }
-  .nav-links a { font-size: 14px; margin: 0; }
-
-  main { margin-top: 84px; }
-
-  /* Section กระชับ */
-  section { padding: 32px 16px; min-height: auto; }
-
-  .home-section .content,
-  .performance-section .content {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 20px;
-    padding: 16px;
-    padding-left: 0;                /* CHANGED: ตัด 250px ในมือถือ */
-  }
-  .home-section img { width: min(420px, 60vw); }
-  .performance-section img { width: min(480px,85vw); }
-  .social-link img { width: min(480px,10vw); }
-  .social-link2 img { width: min(480px,20vw); }
-
-  #minigame {
-    background-size: auto 100%;
-    background-position: 0 50%;
-    min-height: 40vh;
-    padding: 40px 16px;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center;
-  }
-  .contact-container { gap: 20px; }
-  .contact img { width: 120px; }
-  .contact2 img { width: 54px; }
-
-    
-  #contact {
-     background: #e2f0cb;
-     padding: 5px 0px;      /* ลดระยะบนล่าง */
-     min-height: auto;   
-      
-    }
-  }
-  </style>
 </head>
 <body>
 
@@ -260,7 +17,8 @@
     
     <nav class="nav-links">
       <a href="#home">Home</a>
-      <a href="#performance">Performance</a>
+      <a href="#projects">Projects</a>
+      <a href="#performance">Hobby</a>
       <a href="#minigame">Mini Game</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -274,15 +32,42 @@
         <img src="https://raw.githubusercontent.com/jepmem/my-sound/edcc0393cfc2ab45a2aa3c07dbd7aef366d7b7a4/Gemini_Generated_Image_quce45quce45quce.png" >
         <div class="text">
          <h1>👋 Hellooooo</h1>
-          <p>My name's Jeep want to be a data scientist <br>
-          but I create this web for fun and show some content, take a look at it
+          <p>My name's Jeep or Weerapat Thaiprasit, I want to be a data scientist <br>
+          I create this web for fun and show my content, take a look at it
           </p>
         </div>
       </div>
     </section>
+    <!-- Projects -->
+    <section id="projects" class="projects-section">
+      <h1>📊 Data Science Projects</h1>
+      <p>My Machine Learning & Data Analysis Works</p>
+
+      <div class="projects-container">
+
+      <div class="project-card">
+        <h3>📈 Stock Price Prediction</h3>
+        <p>Linear Regression, Time Series</p>
+        <span>Tools: Python, Pandas, Scikit-learn</span>
+      </div>
+
+      <div class="project-card">
+        <h3>🤖 Customer Segmentation</h3>
+        <p>K-Means Clustering</p>
+        <span>Tools: Python, Matplotlib</span>
+      </div>
+
+      <div class="project-card">
+        <h3>🏠 House Price Analysis</h3>
+        <p>Multiple Regression</p>
+        <span>Tools: Python, Seaborn</span>
+      </div>
+
+      </div>
+    </section>
     <!-- Performance -->
     <section id="performance" class="performance-section">
-      <h1>🏆 Performance</h1>
+      <h1>🏆 Hobby</h1>
        <div class="social-link">
         <a href="https://www.tiktok.com/@jepmemz" target="_blank">
         <img src="https://github.com/jepmem/my-sound/blob/main/tik-tok-glitch-icon-social-media-tik-tok-icon-vinnitsa-ukraine-february-22-02-2023_250246-536-Photoroom.png?raw=true" alt="TikTok Logo">
